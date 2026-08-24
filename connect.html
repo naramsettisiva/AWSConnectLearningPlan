@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon Connect Track — Cert Flight Plan</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="top"><div class="nav-inner">
+  <a href="index.html">Overview</a>
+  <a href="ai-practitioner.html">AI Practitioner</a>
+  <a href="connect.html" class="active">Amazon Connect</a>
+  <a href="fde.html">FDE Track</a>
+</div></nav>
+
+<div class="progress-rail"><div class="progress-inner">
+  <span class="progress-label" id="progressLabel">0 / 7 DAYS</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div></div>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow teal">Track B · 6 hrs/day · Starts today</p>
+    <h1>Amazon Connect Badges</h1>
+    <p class="sub">Fundamentals → AI Fundamentals → Developer → Communication Specialist, all hands-on in a free AWS Builder Center sandbox. Sundays off. Each day links to the learning plan and closes with a short graded check.</p>
+  </header>
+
+  <div id="days"></div>
+
+  <div class="mock-section">
+    <div class="mock-head">
+      <h2>Full Mock Exam</h2>
+      <span class="mock-meta">10 questions · mixed across all four badges</span>
+    </div>
+    <p class="sub" style="margin-bottom:0;">A cross-badge check before you call the track finished.</p>
+    <div id="mockQuiz"></div>
+  </div>
+
+  <div class="score-history">
+    <h3>Score history</h3>
+    <div id="scoreHistory"></div>
+  </div>
+
+  <footer>
+    <p><b>Sandbox:</b> <a href="https://builder.aws.com" target="_blank" rel="noopener">AWS Builder Center Sandbox</a> — free, zero-cost-risk AWS account per workshop, 8 hrs/session, resets weekly (Sundays). Request a fresh one on Day 1 and again at the start of each new week.</p>
+    <p><b>Badges hub:</b> <a href="https://explore.skillbuilder.aws" target="_blank" rel="noopener">explore.skillbuilder.aws</a> · <a href="https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges" target="_blank" rel="noopener">Badge framework overview</a></p>
+    <button class="reset-btn" id="resetBtn">Reset this track's checklist &amp; scores</button>
+  </footer>
+</div>
+
+<script src="app.js"></script>
+<script>
+const TRACK = {
+  id: 'connect',
+  days: [
+    { n:1, week:'Week 1', date:'Mon, Aug 24', title:'Connect Fundamentals badge (Modules 1–4)',
+      tasks:[
+        '⏱ Request a Builder Center sandbox first (~15 min, 8 hrs access)',
+        '4 hrs — Fundamentals learning plan: what Connect is, contact flows, queues, routing profiles',
+        '2 hrs — Hands-on: build your first contact flow in the sandbox instance'
+      ],
+      links:[
+        {label:'Connect Fundamentals learning plan', url:'https://skillbuilder.aws/learning-plan/1EJ6WNS6XY/amazon-connect-fundamentals--knowledge-badge-readiness-path/D7Z2GEDGEY'},
+        {label:'AWS Builder Center Sandbox', url:'https://builder.aws.com'}
+      ],
+      quiz:[
+        {q:'What is Amazon Connect primarily used for?', opts:['Object storage','Cloud-based contact center as a service','Relational database hosting','DNS management'], correct:1},
+        {q:'What is a "contact flow" in Amazon Connect?', opts:['A billing report','A visual workflow defining how customer interactions are handled','A network firewall rule','An IAM policy document'], correct:1},
+        {q:'Which block type routes based on business hours?', opts:['Check Hours of Operation','Play Prompt','Set Voice','Loop'], correct:0}
+      ]
+    },
+    { n:2, week:'Week 1', date:'Tue, Aug 25', title:'Fundamentals assessment + AI Fundamentals (Modules 1–2)',
+      tasks:[
+        '2 hrs — Sit the Fundamentals badge assessment (80% to pass)',
+        '3 hrs — AI Fundamentals: Contact Lens, AI-powered routing, conversational IVR basics',
+        '1 hr — Hands-on: enable Contact Lens on a test contact flow'
+      ],
+      links:[
+        {label:'Connect AI Fundamentals learning plan', url:'https://skillbuilder.aws/learning-plan/C75KRNZ9N7/amazon-connect-ai-fundamentals--knowledge-badge-readiness-path/D56C11BKKD'},
+        {label:'Amazon Lex overview', url:'https://aws.amazon.com/lex/'}
+      ],
+      quiz:[
+        {q:'What does Contact Lens for Amazon Connect provide?', opts:['Physical camera hardware','Real-time analytics, transcription, and sentiment analysis of calls','VPN tunneling','Load balancing'], correct:1},
+        {q:'What is an example of AI-powered routing in Connect?', opts:['Round-robin only, no intelligence','Routing based on predicted customer intent or sentiment','Manual routing by a dispatcher every time','Routing based solely on IP geolocation'], correct:1},
+        {q:"Which AWS service commonly powers Connect's conversational IVR / chatbots?", opts:['Amazon Lex','Amazon RDS','AWS Direct Connect','Amazon S3'], correct:0}
+      ]
+    },
+    { n:3, week:'Week 1', date:'Wed, Aug 26', title:'AI Fundamentals (Modules 3–4) + assessment',
+      tasks:[
+        '4 hrs — Post-call summaries, real-time sentiment alerts, self-service design patterns',
+        '1 hr — Hands-on: review an auto-generated call summary in the sandbox',
+        '1 hr — Sit the AI Fundamentals badge assessment (80% to pass)'
+      ],
+      links:[
+        {label:'Connect AI Fundamentals learning plan', url:'https://skillbuilder.aws/learning-plan/C75KRNZ9N7/amazon-connect-ai-fundamentals--knowledge-badge-readiness-path/D56C11BKKD'},
+        {label:'Connect Bootcamp workshop', url:'https://catalog.workshops.aws/amazon-connect-bootcamp'}
+      ],
+      quiz:[
+        {q:'What can Contact Lens generate automatically after a call?', opts:['A new IAM role','A call summary and sentiment score','A CloudFormation template','A VPC peering connection'], correct:1},
+        {q:'What is the purpose of real-time sentiment analysis in a contact center?', opts:['To bill customers automatically','To alert supervisors to escalate difficult calls in progress','To encrypt call recordings','To reset agent passwords'], correct:1},
+        {q:'What is a benefit of AI-powered self-service (e.g. via Lex) in Connect?', opts:['Guaranteeing zero call volume','Resolving common inquiries without an agent','Replacing the need for contact flows','Eliminating the need for phone numbers'], correct:1}
+      ]
+    },
+    { n:4, week:'Week 1', date:'Thu, Aug 27', title:'Developer badge (Modules 1–2)',
+      tasks:[
+        '4 hrs — APIs, Lambda integration, Lex integration into contact flows',
+        '2 hrs — Hands-on: attach a Lambda function to a contact flow block in the sandbox'
+      ],
+      links:[
+        {label:'Connect Developer learning plan', url:'https://skillbuilder.aws/learning-plan/6YW2QYUBKS/amazon-connect-developer-learning--badge-plan/NEWQZB4HAQ'},
+        {label:'Connect + Lambda integration guide', url:'https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html'}
+      ],
+      quiz:[
+        {q:'How can you extend Connect contact flows with custom logic?', opts:['Editing DNS records','AWS Lambda functions invoked from a flow block','Modifying S3 bucket policies','Changing EC2 instance types'], correct:1},
+        {q:'What does the Amazon Connect Streams API (or similar SDK) enable?', opts:['Building custom agent desktop / CCP experiences','Creating VPCs','Managing Route 53 records','Deploying RDS instances'], correct:0},
+        {q:"What's a common way to integrate Connect with a CRM?", opts:['Manually re-type data between systems','Use Lambda + Connect APIs to look up/update customer records','There is no integration path','Only via physical hardware'], correct:1}
+      ]
+    },
+    { n:5, week:'Week 1', date:'Fri, Aug 28', title:'Developer badge (Modules 3–4) + assessment', offAfter:'Sun, Aug 30 — off',
+      tasks:[
+        '3 hrs — Infrastructure as code for Connect (CloudFormation/CDK), reporting APIs',
+        '2 hrs — Hands-on: deploy a small Connect resource via CloudFormation in the sandbox',
+        '1 hr — Sit the Developer badge assessment (80% to pass)'
+      ],
+      links:[
+        {label:'Connect Developer learning plan', url:'https://skillbuilder.aws/learning-plan/6YW2QYUBKS/amazon-connect-developer-learning--badge-plan/NEWQZB4HAQ'},
+        {label:'Connect Developer badge (Credly)', url:'https://www.credly.com/org/amazon-web-services/badge/aws-knowledge-amazon-connect-developer-training-bad'}
+      ],
+      quiz:[
+        {q:'Which AWS services are commonly used to deploy Connect solutions as infrastructure as code?', opts:['Amazon Route 53 only','AWS CloudFormation and AWS CDK','AWS Budgets','Amazon SNS only'], correct:1},
+        {q:'What passing score is typically required for AWS Knowledge badge assessments?', opts:['80%','25%','50%','100% with no retakes ever'], correct:0},
+        {q:'Which API lets you fetch real-time and historical Connect metrics?', opts:['Amazon S3 Select','Amazon Connect metrics/reporting APIs','AWS Certificate Manager API','Amazon Route 53 API'], correct:1}
+      ]
+    },
+    { n:6, week:'Week 2', date:'Mon, Aug 31', title:'Communication Specialist badge (full)',
+      tasks:[
+        '⏱ Request a fresh sandbox — weekly quota reset Sun Aug 30',
+        '4 hrs — Workforce optimization, telephony/voice config, queues & routing profiles at depth',
+        '2 hrs — Hands-on: configure a routing profile and claim a phone number in the sandbox'
+      ],
+      links:[
+        {label:'Amazon Connect badge framework (choose Administrator track badge)', url:'https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges'},
+        {label:'explore.skillbuilder.aws', url:'https://explore.skillbuilder.aws'}
+      ],
+      quiz:[
+        {q:'What is Workforce Optimization in a contact center context?', opts:['Optimizing S3 storage classes','Forecasting, scheduling, and managing agent performance','Reducing VPC costs','A type of DNS caching'], correct:1},
+        {q:'What does telephony/voice configuration in Connect typically include?', opts:['Configuring EC2 security groups','Claiming phone numbers and configuring queues/routing profiles','Creating IAM users only','Setting up a CDN'], correct:1},
+        {q:'Which badge track focuses on day-to-day contact center operations?', opts:['The Administrator track','The Machine Learning Specialty track','The Network Engineer track','The Database Specialist track'], correct:0}
+      ]
+    },
+    { n:7, week:'Week 2', date:'Tue, Sep 1', title:'Assessment + portfolio wrap-up',
+      tasks:[
+        '2 hrs — Sit the Communication Specialist badge assessment (80% to pass)',
+        '2 hrs — Document the contact flows and integrations you built, with screenshots',
+        '2 hrs — Update LinkedIn/resume with earned badges and portfolio artifacts'
+      ],
+      links:[
+        {label:'Your badges on Credly', url:'https://www.credly.com/'},
+        {label:'explore.skillbuilder.aws profile', url:'https://explore.skillbuilder.aws'}
+      ],
+      quiz:[
+        {q:'Where are earned Amazon Connect badges displayed?', opts:['They are not shareable','Credly, linked to your AWS Skill Builder profile','Only visible internally at Amazon','On a printed certificate only'], correct:1},
+        {q:"What's a good portfolio artifact from this track?", opts:['A screenshot of your email inbox','A documented contact flow you built with Lambda integration','A random stock photo','Nothing — badges can\'t be documented'], correct:1},
+        {q:"What's a reasonable next badge after Developer, if continuing?", opts:['Immediately retake Fundamentals','Communication Specialist or another Administrator-track badge, based on role interest','There are no further badges','AWS Certified Solutions Architect – Professional only'], correct:1}
+      ]
+    }
+  ],
+  mock: [
+    {q:'What is Amazon Connect primarily used for?', opts:['Object storage','Cloud-based contact center as a service','Relational database hosting','DNS management'], correct:1},
+    {q:'What is a "contact flow" in Amazon Connect?', opts:['A billing report','A visual workflow defining how customer interactions are handled','A network firewall rule','An IAM policy document'], correct:1},
+    {q:'What does Contact Lens for Amazon Connect provide?', opts:['Physical camera hardware','Real-time analytics, transcription, and sentiment analysis of calls','VPN tunneling','Load balancing'], correct:1},
+    {q:"Which AWS service commonly powers Connect's conversational IVR / chatbots?", opts:['Amazon Lex','Amazon RDS','AWS Direct Connect','Amazon S3'], correct:0},
+    {q:'What is the purpose of real-time sentiment analysis in a contact center?', opts:['To bill customers automatically','To alert supervisors to escalate difficult calls in progress','To encrypt call recordings','To reset agent passwords'], correct:1},
+    {q:'How can you extend Connect contact flows with custom logic?', opts:['Editing DNS records','AWS Lambda functions invoked from a flow block','Modifying S3 bucket policies','Changing EC2 instance types'], correct:1},
+    {q:'Which AWS services are commonly used to deploy Connect solutions as infrastructure as code?', opts:['Amazon Route 53 only','AWS CloudFormation and AWS CDK','AWS Budgets','Amazon SNS only'], correct:1},
+    {q:'What passing score is typically required for AWS Knowledge badge assessments?', opts:['80%','25%','50%','100% with no retakes ever'], correct:0},
+    {q:'What is Workforce Optimization in a contact center context?', opts:['Optimizing S3 storage classes','Forecasting, scheduling, and managing agent performance','Reducing VPC costs','A type of DNS caching'], correct:1},
+    {q:'Where are earned Amazon Connect badges displayed?', opts:['They are not shareable','Credly, linked to your AWS Skill Builder profile','Only visible internally at Amazon','On a printed certificate only'], correct:1}
+  ]
+};
+buildTrack(TRACK);
+</script>
+</body>
+</html>
