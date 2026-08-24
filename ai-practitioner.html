@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS AI Practitioner Track — Cert Flight Plan</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="top"><div class="nav-inner">
+  <a href="index.html">Overview</a>
+  <a href="ai-practitioner.html" class="active">AI Practitioner</a>
+  <a href="connect.html">Amazon Connect</a>
+</div></nav>
+
+<div class="progress-rail"><div class="progress-inner">
+  <span class="progress-label" id="progressLabel">0 / 8 DAYS</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div></div>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Track A · 6 hrs/day · Starts today</p>
+    <h1>AWS Certified AI Practitioner</h1>
+    <p class="sub">AIF-C01, domain by domain, ending in a booked and passed exam. Sundays off. Each day links straight to the tutorial and closes with a short graded check.</p>
+  </header>
+
+  <div id="days"></div>
+
+  <div class="mock-section">
+    <div class="mock-head">
+      <h2>Full Mock Exam</h2>
+      <span class="mock-meta">10 questions · mixed domains</span>
+    </div>
+    <p class="sub" style="margin-bottom:0;">Timed practice before you book: cover all five domains in one pass. Sit this after Day 6.</p>
+    <div id="mockQuiz"></div>
+  </div>
+
+  <div class="score-history">
+    <h3>Score history</h3>
+    <div id="scoreHistory"></div>
+  </div>
+
+  <footer>
+    <p><b>Official prep hub:</b> <a href="https://skillbuilder.aws/exam-prep/ai-practitioner" target="_blank" rel="noopener">AWS Skill Builder — AI Practitioner exam prep</a> · <a href="https://aws.amazon.com/certification/certified-ai-practitioner/" target="_blank" rel="noopener">Certification overview & exam guide</a></p>
+    <p>If your mock exam score is below ~80%, spend an extra day on weak domains before booking rather than sitting underprepared.</p>
+    <button class="reset-btn" id="resetBtn">Reset this track's checklist &amp; scores</button>
+  </footer>
+</div>
+
+<script src="app.js"></script>
+<script>
+const TRACK = {
+  id: 'aif',
+  days: [
+    { n:1, week:'Week 1', date:'Mon, Aug 24', title:'Fundamentals of AI &amp; ML (Domain 1)',
+      tasks:[
+        '4 hrs — Domain 1: ML concepts, model types, training vs. inference, AWS AI/ML service map',
+        '1 hr — Hands-on: explore Amazon SageMaker console (no training job needed yet)',
+        '1 hr — Take the official diagnostic pretest to baseline weak areas'
+      ],
+      links:[
+        {label:'Skill Builder — Exam Prep Course', url:'https://skillbuilder.aws/learn/MTFGB6VC17/exam-prep-overview-aws-certified-ai-practitioner--aifc01--english/R6VBW5VG8R'},
+        {label:'Official Pretest', url:'https://skillbuilder.aws/learning-plan/3NRN71QZR2/exam-prep-plan-aws-certified-ai-practitioner-aifc01--english/FBV4STG94B'}
+      ],
+      quiz:[
+        {q:'Which of the following best describes supervised learning?', opts:['Model learns from labeled data','Model discovers patterns in unlabeled data','Model learns via trial and reward','Model requires no training data'], correct:0},
+        {q:'What is overfitting?', opts:['Model has too few parameters','Model performs well on training data but poorly on new data','Model trains too quickly','Model underperforms on all data'], correct:1},
+        {q:'Which AWS service is a fully managed service to build, train, and deploy ML models?', opts:['Amazon Comprehend','Amazon Textract','Amazon SageMaker','Amazon Polly'], correct:2}
+      ]
+    },
+    { n:2, week:'Week 1', date:'Tue, Aug 25', title:'Generative AI Fundamentals (Domain 2)',
+      tasks:[
+        '4 hrs — Domain 2: foundation models, prompt engineering, tokens & context windows, Amazon Bedrock',
+        '1 hr — Hands-on: try prompts against a model in the Bedrock console playground',
+        '1 hr — Udemy course section matching Domain 2 + embedded quiz'
+      ],
+      links:[
+        {label:'Skill Builder — Domain 2 modules', url:'https://skillbuilder.aws/learn/MTFGB6VC17/exam-prep-overview-aws-certified-ai-practitioner--aifc01--english/R6VBW5VG8R'},
+        {label:'Amazon Bedrock console', url:'https://aws.amazon.com/bedrock/'},
+        {label:'Udemy — AIF-C01 course (Maarek)', url:'https://www.udemy.com/course/aws-ai-practitioner-certified/'}
+      ],
+      quiz:[
+        {q:'What is a foundation model?', opts:['A rule-based expert system','A large pre-trained model adaptable to many tasks','A model only for image classification','A model trained on a single narrow task'], correct:1},
+        {q:'Which AWS service provides access to foundation models via API?', opts:['Amazon RDS','AWS Glue','Amazon Bedrock','Amazon EC2 Auto Scaling'], correct:2},
+        {q:'What does "prompt engineering" primarily involve?', opts:['Configuring network security groups','Writing training code','Crafting inputs to guide model outputs','Managing IAM roles'], correct:2}
+      ]
+    },
+    { n:3, week:'Week 1', date:'Wed, Aug 26', title:'Applications of Foundation Models (Domain 3)',
+      tasks:[
+        '4 hrs — Domain 3: RAG, fine-tuning vs. prompting, Bedrock Agents & Knowledge Bases, embeddings',
+        '1 hr — Hands-on: set up a simple Knowledge Base against a small doc set in Bedrock',
+        '1 hr — Practice questions on Domains 1–3, review every miss'
+      ],
+      links:[
+        {label:'Skill Builder — Domain 3 modules', url:'https://skillbuilder.aws/learn/MTFGB6VC17/exam-prep-overview-aws-certified-ai-practitioner--aifc01--english/R6VBW5VG8R'},
+        {label:'Official Practice Question Set', url:'https://skillbuilder.aws/learn/4URFGY63KV/official-practice-question-set-aws-certified-ai-practitioner--aifc01--english/FVG43Y1PAX'}
+      ],
+      quiz:[
+        {q:'What does RAG stand for in a gen AI context?', opts:['Rapid AI Generation','Retrieval-Augmented Generation','Recursive Attention Gating','Regional Access Gateway'], correct:1},
+        {q:'When is fine-tuning generally preferred over prompt engineering?', opts:['When you need a quick one-off answer','When you have no training data','When you need the model to learn domain-specific patterns from many examples','When cost must be zero'], correct:2},
+        {q:'In Amazon Bedrock, what is a "Knowledge Base" used for?', opts:['Storing IAM policies','Connecting a model to your own data for retrieval-augmented responses','Managing billing alerts','Hosting EC2 AMIs'], correct:1}
+      ]
+    },
+    { n:4, week:'Week 1', date:'Thu, Aug 27', title:'Guidelines for Responsible AI (Domain 4)',
+      tasks:[
+        '4 hrs — Domain 4: bias, fairness, transparency, explainability, AWS responsible AI tooling',
+        '1 hr — Hands-on: review a SageMaker Clarify bias report example',
+        '1 hr — Practice questions on Domain 4, review every miss'
+      ],
+      links:[
+        {label:'Skill Builder — Domain 4 modules', url:'https://skillbuilder.aws/learn/MTFGB6VC17/exam-prep-overview-aws-certified-ai-practitioner--aifc01--english/R6VBW5VG8R'},
+        {label:'SageMaker Clarify overview', url:'https://aws.amazon.com/sagemaker/clarify/'}
+      ],
+      quiz:[
+        {q:'What is "model bias" in AI?', opts:['A model that is too accurate','Systematic errors that unfairly favor or disfavor certain groups','A model with too many parameters','A model that trains too fast'], correct:1},
+        {q:'Which practice helps improve AI transparency?', opts:['Hiding training data sources','Avoiding all testing','Documenting model cards and data lineage','Skipping bias audits'], correct:2},
+        {q:'Which AWS tool helps detect bias in ML models?', opts:['Amazon Connect','Amazon SageMaker Clarify','AWS Direct Connect','Amazon Route 53'], correct:1}
+      ]
+    },
+    { n:5, week:'Week 1', date:'Fri, Aug 28', title:'Security, Compliance &amp; Governance (Domain 5) + Practice Exam 1',
+      tasks:[
+        '3 hrs — Domain 5: IAM for AI services, data protection, model governance, compliance basics',
+        '1 hr — Hands-on: review IAM policy examples scoped to Bedrock/SageMaker access',
+        '2 hrs — Full-length practice exam #1, timed — review after, not during'
+      ],
+      links:[
+        {label:'Skill Builder — Domain 5 modules', url:'https://skillbuilder.aws/learn/MTFGB6VC17/exam-prep-overview-aws-certified-ai-practitioner--aifc01--english/R6VBW5VG8R'},
+        {label:'Tutorials Dojo practice exams', url:'https://tutorialsdojo.com/aws-certified-ai-practitioner-aif-c01/'}
+      ],
+      quiz:[
+        {q:'What is the primary AWS mechanism for controlling access to AI services?', opts:['Security groups only','IAM policies and roles','Route tables','CloudFront distributions'], correct:1},
+        {q:'What does "data governance" ensure in an AI system?', opts:['Data is deleted immediately after use','Data is always public','Data is accurate, secure, and used appropriately','Data bypasses encryption'], correct:2},
+        {q:'Which AWS feature helps encrypt data used by AI services at rest?', opts:['AWS Budgets','Amazon CloudWatch','AWS KMS','AWS Trusted Advisor'], correct:2}
+      ]
+    },
+    { n:6, week:'Week 1', date:'Sat, Aug 29', title:'Full Review + Practice Exam 2', offAfter:'Sun, Aug 30 — off',
+      tasks:[
+        '2 hrs — Review practice exam #1 in full, log every missed concept',
+        '2 hrs — Re-study weak domains identified from the review',
+        '2 hrs — Full-length practice exam #2, timed'
+      ],
+      links:[
+        {label:'Tutorials Dojo practice exams', url:'https://tutorialsdojo.com/aws-certified-ai-practitioner-aif-c01/'},
+        {label:'Whizlabs AIF-C01 practice tests', url:'https://www.whizlabs.com/aws-certified-ai-practitioner/'}
+      ],
+      quiz:[
+        {q:'Which is an example of a generative AI use case?', opts:['Static website hosting','Text summarization','Simple SQL query execution','DNS resolution'], correct:1},
+        {q:"What's the main benefit of using a managed foundation model service like Bedrock over self-hosting?", opts:['Guaranteed zero cost','No infrastructure to manage, pay-per-use','No need for prompts','Unlimited free training data'], correct:1},
+        {q:'What is "hallucination" in the context of generative AI?', opts:['The model refuses to answer','The model runs out of memory','The model generates plausible-sounding but incorrect or fabricated information','The model duplicates training data exactly'], correct:2}
+      ]
+    },
+    { n:7, week:'Week 2', date:'Mon, Aug 31', title:'Practice Exam 3 + Book the Exam',
+      tasks:[
+        '3 hrs — Full-length practice exam #3, timed — target 85%+ before booking',
+        '2 hrs — Review misses, targeted flashcard review of weak domains',
+        '1 hr — Book the AIF-C01 exam (testing center or online proctored) for tomorrow'
+      ],
+      links:[
+        {label:'Schedule exam — AWS Certification Account', url:'https://aws.amazon.com/certification/certification-prep/'},
+        {label:'Tutorials Dojo practice exams', url:'https://tutorialsdojo.com/aws-certified-ai-practitioner-aif-c01/'}
+      ],
+      quiz:[
+        {q:'Roughly how many questions are on the AIF-C01 exam, and in what time?', opts:['85 questions, 100 minutes','10 questions, 10 minutes','300 questions, 5 hours','1 question, unlimited time'], correct:0},
+        {q:'What passing strategy is most effective before an exam?', opts:['Skip all practice exams','Review weak domains identified from practice exams','Only study test-taking tricks','Memorize question banks verbatim'], correct:1},
+        {q:'Which resource is the official AWS source for practice questions?', opts:['Random social media posts','Unofficial forums only','AWS Skill Builder Official Practice Question Set','None — no resources exist'], correct:2}
+      ]
+    },
+    { n:8, week:'Week 2', date:'Tue, Sep 1', title:'Final Review + Exam Day',
+      tasks:[
+        '2 hrs — Light review only: flashcards, key service comparisons (Bedrock vs SageMaker vs Comprehend vs Rekognition)',
+        '1 hr — Confirm exam-day logistics (ID rules, online proctor setup if remote)',
+        '3 hrs — Sit the AIF-C01 exam'
+      ],
+      links:[
+        {label:'Exam day readiness checklist', url:'https://aws.amazon.com/certification/certification-prep/'},
+        {label:'Your badge on Credly (after passing)', url:'https://www.credly.com/'}
+      ],
+      quiz:[
+        {q:'What should you verify before an online proctored exam?', opts:['Nothing is required','Valid photo ID and a clear workspace','A second monitor is required','Notes and textbooks are allowed'], correct:1},
+        {q:'After passing, where can you find your digital badge?', opts:['It is mailed on paper only','Credly, linked from your AWS Certification account','There is no badge','Only visible to AWS employees'], correct:1},
+        {q:"What's a good next step after AI Practitioner certification?", opts:['Delete all your notes','Never touch AWS again','Pursue a specialty or associate-level AWS certification','Un-enroll from Skill Builder'], correct:2}
+      ]
+    }
+  ],
+  mock: [
+    {q:'Which of the following best describes supervised learning?', opts:['Model learns from labeled data','Model discovers patterns in unlabeled data','Model learns via trial and reward','Model requires no training data'], correct:0},
+    {q:'What is a foundation model?', opts:['A rule-based expert system','A large pre-trained model adaptable to many tasks','A model only for image classification','A model trained on a single narrow task'], correct:1},
+    {q:'What does RAG stand for in a gen AI context?', opts:['Rapid AI Generation','Retrieval-Augmented Generation','Recursive Attention Gating','Regional Access Gateway'], correct:1},
+    {q:'What is "model bias" in AI?', opts:['A model that is too accurate','Systematic errors that unfairly favor or disfavor certain groups','A model with too many parameters','A model that trains too fast'], correct:1},
+    {q:'What is the primary AWS mechanism for controlling access to AI services?', opts:['Security groups only','IAM policies and roles','Route tables','CloudFront distributions'], correct:1},
+    {q:'What is "hallucination" in the context of generative AI?', opts:['The model refuses to answer','The model runs out of memory','The model generates plausible-sounding but incorrect or fabricated information','The model duplicates training data exactly'], correct:2},
+    {q:'Which AWS service provides access to foundation models via API?', opts:['Amazon RDS','AWS Glue','Amazon Bedrock','Amazon EC2 Auto Scaling'], correct:2},
+    {q:'When is fine-tuning generally preferred over prompt engineering?', opts:['When you need a quick one-off answer','When you have no training data','When you need the model to learn domain-specific patterns from many examples','When cost must be zero'], correct:2},
+    {q:'Which AWS feature helps encrypt data used by AI services at rest?', opts:['AWS Budgets','Amazon CloudWatch','AWS KMS','AWS Trusted Advisor'], correct:2},
+    {q:'Roughly how many questions are on the AIF-C01 exam, and in what time?', opts:['85 questions, 100 minutes','10 questions, 10 minutes','300 questions, 5 hours','1 question, unlimited time'], correct:0}
+  ]
+};
+buildTrack(TRACK);
+</script>
+</body>
+</html>
